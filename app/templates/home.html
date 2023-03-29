@@ -3,9 +3,16 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-50 p-b-90">
-					<span class="login100-form-title p-b-51">
-						{{ message }}
-					</span>
+					<table>
+                        <tbody>
+                            {% for segment in data %}
+                              <tr>
+                                <td>{{ segment.tweet_text}}</td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                          
+                    </table>
 					<div class="container-login100-form-btn m-t-17">
 						<button class="login100-form-btn">
 							<a class="login100-form-btn" href="{{ url_for('main.logout')}}">Logout</a>

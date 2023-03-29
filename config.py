@@ -12,4 +12,6 @@ class Config:
     TOKEN_URL = "https://api.twitter.com/2/oauth2/token"
     REDIRECT_URI = 'http://127.0.0.1:5000/oauth/callback'
     SCOPES = ["tweet.read", "users.read", "tweet.write", "offline.access"]
+    PROFILE_URL = "https://api.twitter.com/2/users/me"
+    TIMELINE_URL = "https://api.twitter.com/2/users/{}/timelines/reverse_chronological"
     

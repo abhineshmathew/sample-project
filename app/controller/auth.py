@@ -2,7 +2,7 @@ import base64
 import requests
 
 from flask import redirect, session, request, url_for, current_app
-from .helper import code_verifier, code_challenge, make_token
+from .helper import code_verifier, code_challenge, make_token, create_user
 
 
 def login():
@@ -33,10 +33,14 @@ def callback():
     }
 
     response = requests.post(current_app.config.get('TOKEN_URL'), headers=headers, data=data)
-    print(response.json())
-    session["logged_in"] = True
+    user = create_user(response.json().get('access_token'))
+    if not user:
+        return redirect(url_for('main.index'))
+    session["logged_in_token"] = response.json().get('access_token')
+    session["logged_in_id"] = user.t_user_id
     return redirect(url_for('main.index'))
 
 def logout():
-    session['logged_in'] = False
+    session['logged_in_token'] = False
+    session['logged_in_id'] = False
     return redirect(url_for('main.index'))
